@@ -1,0 +1,94 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Arial', sans-serif;
+}
+
+h1 {
+  text-align: center;
+  margin-top: 20px;
+}
+
+nav {
+  position: static;
+  top: 0;
+  left: 0;
+  width: 100%;
+  color: white;
+  padding: 10px;
+}
+
+.cart-container {
+  position: fixed;
+  overflow-y: auto;
+  top: 80px;
+  left: -300px; /* Initially off-screen */
+  padding: 10px;
+  border: 2px solid;
+  background-color: beige;
+  z-index: 500;
+  opacity: 0.9; /* see through */
+  transition: left 0.3s ease; /* Add a transition for smooth movement */
+}
+
+/* Add a class to make it visible when the mouse is over */
+.cart-container.visible {
+  left: 1px;
+}
+/* Add some styling for the cart trigger (could be an icon or any element) */
+
+.cart-icon {
+  position: fixed;
+  top: 50px;
+  left: 10px;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.products_customer-container {
+  position: static;
+  align-self: safe;
+  top: 0;
+  right: 20px;
+  padding: 10px;
+}
+
+.link-button {
+  display: block;
+  padding: 1px; /* Adjust padding as needed */
+  border: 2px solid;
+  background-color: #2196F3; /* Adjust background color as needed */
+  color: white; /* Adjust text color as needed */
+  text-decoration: none; /* Remove underline style for links */
+  cursor: pointer;
+  width: auto; /* Set width to auto */
+}
+
+.container {
+  margin-top: 60px; /* Adjust margin-top to accommodate the fixed navigation */
+}
+
+.grid {
+  
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px; /* Adjust the gap as needed */
+  max-width: 80%; 
+  /* Adjust the max-width as needed */
+  margin: 0 auto; /* Center the container */
+}
+
+.grid > div {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px; /* Adjust the gap as needed */
+}
