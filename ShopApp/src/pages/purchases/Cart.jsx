@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import DispatchBTNComp from "../products/DispatchBTN";
 import BuyNowComp from "./BuyNow";
 
-function CartComp() {
+function CartComp({accessToken}) {
   const [total, setTotal] = useState(0);
   const [products, setProducts] = useState([]);
   const [isCartVisible, setCartVisibility] = useState(false);
@@ -52,7 +52,7 @@ function CartComp() {
                       <DispatchBTNComp prod={prod} status={"REMOVE"} />
                     </li>
                   )
-              )} <BuyNowComp cart={cart} />
+              )} <BuyNowComp cart={cart} accessToken={accessToken} />
             </ul>
           ) : (
             <Link className="link-button" to="/products">

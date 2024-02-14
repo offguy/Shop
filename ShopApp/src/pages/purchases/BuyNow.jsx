@@ -1,12 +1,13 @@
 import React from 'react';
-import { SaveCartToDB } from '../../requests/api';
+import {  saveCartToDB } from '../../requests/shopAPI';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 const BuyNowComp = ({ cart }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch()
-  const handleClick = async (cart) => {
+  const handleClick = async () => {
+    
     try {
       const {date, custId: customerId, _id: id, prods: products } = cart
       const processedProducts = products.map(prod => {
@@ -15,7 +16,7 @@ const BuyNowComp = ({ cart }) => {
         return data
       });
       console.log({customerId, products: processedProducts})
-        await SaveCartToDB({customerId, products: processedProducts});
+        await saveCartToDB({customerId, products: processedProducts}, accessToken);
 
       dispatch({type: 'RESET_CART'})
       navigate('http://localhost:5173/');
@@ -26,7 +27,7 @@ const BuyNowComp = ({ cart }) => {
 
   return (
     <div>
-      <button onClick={() => handleClick(cart)}>Buy Now</button>
+      <button onClick={() => handleClick}>Buy Now</button>
     </div>
   );
 };
