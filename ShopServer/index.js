@@ -23,12 +23,12 @@ app.use(express.json());
 
 // Middleware to check token for routes other than auth
 app.use((req, res, next) => {
-    if (req.path.startsWith('/auth')) {
-        // Skip token check for auth routes
+    const token = req.headers['authorization'];
+    if ((!token && req.path.startsWith('/auth/login')) || req.path.startsWith('/auth/register'))
+    {
         next();
     } else {
-      console.log(req.headers);
-        const token = req.headers['authorization'];
+    //   console.log(req.headers);
         console.log(token)
         if (!token) {
             return res.status(401).json({ error: 'Access denied. No access token provided.' });

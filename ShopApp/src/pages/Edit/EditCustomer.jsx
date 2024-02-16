@@ -16,12 +16,19 @@ function EditCustomerComp() {
   useEffect(() => {
     setCustomer({_id : id, status: 'DELETEPROD'})
   }, [])
+  
   const handleSubmit = (e) => {
     e.preventDefault();
+  
+    if (!customer?.address || !customer.address.city || !customer.address.street || !customer.address.number) {
+      alert('Please provide complete address information.');
+      return;
+    }
+  
     dispatch({ type: customer.status, payload: customer ? customer : id });
     setCustomer(null);
   };
-
+  
   const handleChange = (e) => {
     setCustomer({ ...cust, status: e.target.checked ? 'UPDATECUST' : 'DELETECUST' });
   };

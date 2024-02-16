@@ -1,12 +1,14 @@
 const js = require('jsonfile');
 
 
-const readUsers = () => {
-   return js.readFile('../configs/users.json')
+const readUsers = async () => {
+   const users = await js.readFile('./configs/users.json')
+   console.log(users)
+   return users
 }
 
-const writeUsers = (data) => {
-   return js.writeFile('../configs/users.json', data)
+const writeUsers = async (data) => {
+   return await js.writeFile('./configs/users.json', data)
 }
 
 

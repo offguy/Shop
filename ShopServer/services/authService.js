@@ -13,30 +13,34 @@ const register = async (username, password, email) => {
             email
         };
         
-        let data = await usersREP.readUsers();
-        const exist = data.filter(user => user.email === email)
-        if (exist){
+        let users = await usersREP.readUsers();
+        console.log(users)
+        if (users !== null) {
+            const exist = users.filter(user => user.email === email);
+        if (exist.length > 0) {
             return 'Email already in the system';
         }
-        data.push(newUser);
+        users.push(newUser);
 
-        await usersREP.writeUsers(data) ;
+        await usersREP.writeUsers(users);
     
         return 'Successfully registered';
+        }
     } catch (error) {
-        'something went terribly wrong: ' + error
+        return 'something went terribly wrong: ' + error;
     }
 };
 
 
 const loginDataValidation = async (username, password) => {
-    try {
     const data  = await usersREP.readUsers()
-    const user = data.filter(user => user.username === username && user.password === password)
-    return user.id;
-    } catch (error) {
-        return 'Username or Password incorrect'
+    console.log(data)
+    const user = data.find(user => user.username === username && user.password === password)
+    console.log(user)
+    if (user) {
+        return user.id
     }
+   
     
 }
 const checkToken = async (token) => {

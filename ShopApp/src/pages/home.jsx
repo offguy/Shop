@@ -48,10 +48,10 @@ function HomeComp({accessToken}) {
           <div className="products_customer-container">
             <Routes>
               <Route path='/products' element={<ProductsComp />}>
-                <Route path='home/product/:id' element={<EditProductComp />} />
+                <Route path='home/products/product/:id' element={<EditProductComp />} />
               </Route>
               <Route path='/customers' element={<CustomersComp />}>
-                <Route path='home/customer/:id' element={<EditCustomerComp />} />
+                <Route path='home/customers/customer/:id' element={<EditCustomerComp />} />
               </Route>
               <Route path='/purchases' element={<PurchasesComp />} />
             </Routes>

@@ -11,10 +11,10 @@ const handleResponse = (response) => {
 
 export const fetchProducts = async (token) => {
   try {
-    console.log({'authorization': token.accessToken}) 
+    console.log({'authorization': token}) 
     const response = await axios.get(`${API_BASE_URL}/products`, {
       headers: {
-        'authorization': token.accessToken  
+        'authorization': token  
       }
     });
     return handleResponse(response);
@@ -27,7 +27,7 @@ export const fetchCustomers = async (token) => {
   try {
     const response = await axios.get(`${API_BASE_URL}/customers`, {
       headers: {
-        'authorization': token.accessToken  
+        'authorization': token  
       }
     });
     return handleResponse(response);
@@ -40,7 +40,7 @@ export const fetchPurchases = async (token) => {
   try {
     const response = await axios.get(`${API_BASE_URL}/purchases`, {
       headers: {
-        'authorization': token.accessToken  
+        'authorization': token  
       }
     });
     return handleResponse(response);
@@ -54,7 +54,7 @@ export const saveCartToDB = async (cartData, token) => {
     const response = await axios.post(`${API_BASE_URL}/purchases`, cartData, {
       headers: {
         'Content-Type': 'application/json',
-        'authorization': token.accessToken  
+        'authorization': token  
       }
     });
     return handleResponse(response);
