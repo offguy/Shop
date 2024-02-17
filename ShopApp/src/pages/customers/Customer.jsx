@@ -1,39 +1,63 @@
-import { useSelector } from "react-redux"
-import { Link } from "react-router-dom"
+import React from "react";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
-function CustomerComp({cust}) {
-    const products = useSelector((state) => state.products)
-    const purchases = useSelector((state) => state.purchases)
-    
-    // Filter products that the customer bought
-    const prods = products.filter(prod => 
-        purchases.some(purch => 
-            purch.customerId._id === cust._id && purch.products.some(item => item.productId._id === prod._id)
-        )
-    )
-console.log(prods)
-    // Get all customer purchase dates
-    const purchdates = purchases
-        .filter(purch => purch.customerId._id === cust._id)
-        .map(purch => purch.date);
-    
-    return (
-        <tr>
-            <td><Link to={`home/customers/customer/${cust._id}`}>{cust.fname} {cust.lname}</Link></td>
-            <td>
-                {prods.map(prod =>
-                    <Link key={prod._id} to={`/products/product/${prod._id}`}>{prod.name}</Link>
-                )}
-            </td>
-            <td>
-                <ul>
-                    {purchdates.map((date, index) =>
-                        <li key={index}>{date}</li>
-                    )}
-                </ul>
-            </td>
-        </tr>
-    );
+function CustomerComp({ cust }) {
+  const products = useSelector((state) => state.products);
+  const purchases = useSelector((state) => state.purchases);
+
+  // Create a map to store the latest purchase date for each product
+  const latestPurchaseDates = new Map();
+  purchases.forEach((purchase) => {
+    if (purchase.customerId === cust._id) {
+      purchase.products.forEach((p) => {
+        const productId = p.productId;
+        const product = products.find((prod) => prod._id === productId);
+        if (product) {
+          const existingDate = latestPurchaseDates.get(productId);
+          if (!existingDate || existingDate < purchase.date) {
+            latestPurchaseDates.set(productId, purchase.date);
+          }
+        }
+      });
+    }
+  });
+
+  // Filter products that the customer bought and display them with the latest purchase date
+  const purchasedProducts = [];
+  latestPurchaseDates.forEach((date, productId) => {
+    const product = products.find((prod) => prod._id === productId);
+    if (product) {
+      purchasedProducts.push({
+        product: product,
+        date: date,
+      });
+    }
+  });
+
+  return (
+    <tr>
+      <td>
+        <Link to={`customer/${cust._id}`}>
+          {cust.fname} {cust.lname}
+        </Link>
+      </td>
+      <td>
+        {purchasedProducts.map((item, index) => (
+          <div key={index}>
+            <Link to={`../products/product/${item.product._id}`}>
+              {item.product.name}
+            </Link>
+          </div>
+        ))}
+      </td>
+      <td>
+        {purchasedProducts.map((item, index) => (
+          <div key={index}>{item.date}</div>
+        ))}
+      </td>
+    </tr>
+  );
 }
 
 export default CustomerComp;

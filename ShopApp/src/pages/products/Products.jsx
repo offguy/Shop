@@ -1,10 +1,13 @@
 import { useSelector } from "react-redux"
 import {  Outlet } from "react-router-dom"
 import ProductComp from "./Product"
+import { useMemo } from "react"
 
 function ProductsComp() {
   
   const products = useSelector((state) => state.products.filter(prod => prod.status != 'DELETED'))
+
+  const memoizedCustomers = useMemo(() => products, [products]);
 
   
     return (
@@ -22,7 +25,7 @@ function ProductsComp() {
             <td>Customers</td>
             </tr>
             {
-              products.map((prod)=> {
+              memoizedCustomers.map((prod)=> {
                 return( <ProductComp  key={prod._id} prod={prod}/> )
 
 

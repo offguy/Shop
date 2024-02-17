@@ -109,7 +109,7 @@ const storeState = (state = initState, action) => {
       
         const updateCustomers = [...state.customers];
         const custUpdateIndex = updateCustomers.findIndex(cust => cust._id === customerData._id);
-        if (prodsUpdateIndex !== -1) {
+        if (custUpdateIndex !== -1) {
           updateCustomers[custUpdateIndex] = { ...customerData, status: 'UPDATED' };
         }
     case 'DELETECUST':
@@ -120,7 +120,7 @@ const storeState = (state = initState, action) => {
         if (custIndex !== -1) {
           delCusts[custIndex].status = 'DELETED';
         }
-      return { ...state, customers: deletedCustomers };
+      return { ...state, customers: delCusts };
 
       case 'RESET_CART':
         return {...state, cart: {

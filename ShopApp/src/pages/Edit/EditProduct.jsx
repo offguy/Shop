@@ -12,7 +12,7 @@ function EditProductComp() {
   console.log(product)
   useEffect(() => {
     setProduct({_id : id, status: 'DELETEPROD'})
-  }, [])
+  }, [id])
 
 
   const handleSubmit = (e) => {

@@ -1,6 +1,6 @@
-import { useState } from "react"
+import { useMemo } from "react"
 import { useSelector } from "react-redux"
-import { Link, Outlet } from "react-router-dom";
+import {  Outlet } from "react-router-dom";
 import CustomerComp from "./Customer";
 import BuyProductsComp from "./BuyProducts";
 
@@ -9,6 +9,7 @@ import BuyProductsComp from "./BuyProducts";
 function CustomersComp() {
 
     const customers = useSelector((state) => state.customers.filter(cust => cust.status !== 'DELETED'))
+    const memoizedCustomers = useMemo(() => customers, [customers]);
     console.log(customers)
   
     return (
@@ -24,7 +25,7 @@ function CustomersComp() {
             <td>purchased dates</td>
             </tr>
             {
-              customers.map((cust)=> {
+              memoizedCustomers.map((cust)=> {
                 return( <CustomerComp key={cust._id} cust={cust}/> )
               })
             }

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 function EditCustomerComp() {
   const { id } = useParams();
@@ -15,7 +15,7 @@ function EditCustomerComp() {
   }, [customer ? customer : cust]);
   useEffect(() => {
     setCustomer({_id : id, status: 'DELETEPROD'})
-  }, [])
+  }, [id])
   
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -25,7 +25,7 @@ function EditCustomerComp() {
       return;
     }
   
-    dispatch({ type: customer.status, payload: customer ? customer : id });
+    console.log(dispatch({ type: customer.status, payload: customer ? customer : id }));
     setCustomer(null);
     navigate('home/customres')
   };
