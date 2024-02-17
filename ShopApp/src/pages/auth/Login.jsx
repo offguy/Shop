@@ -18,7 +18,7 @@ const LoginComponent = ({getToken}) => {
         getToken(accessToken)
         navigate('/home')
       } catch (error) {
-        'error logging in: ' + error
+         alert (error)
       }
     
 

@@ -53,19 +53,23 @@ const storeState = (state = initState, action) => {
     
     case 'UPDATEPROD':
       const productData = action.payload;
-      const updateCart = [...state.cart.prods];
+      const updateCart = state.cart.prods? [...state.cart.prods] : null;
       const updateProducts = [...state.products];
       const prodsUpdateIndex = updateProducts.findIndex(prod => prod._id === productData._id);
-      const cartUpdateIndex = updateCart.findIndex(prod => prod._id === productData._id);
+
+      if (updateCart) {
+          const cartUpdateIndex = updateCart.findIndex(prod => prod._id === productData._id);
+        //updating cart.prods
+          if (cartUpdateIndex !== -1) {
+            const cartProd = updateCart[cartUpdateIndex];
+            updateCart[cartUpdateIndex] = { ...productData, quantity: cartProd.quantity, status: 'UPDATED' };
+          }
+      }
       //updating products
       if (prodsUpdateIndex !== -1) {
         updateProducts[prodsUpdateIndex] = { ...productData, status: 'UPDATED' };
       }
-      //updating cart.prods
-      if (cartUpdateIndex !== -1) {
-        const cartProd = updateCart[cartUpdateIndex];
-        updateCart[cartUpdateIndex] = { ...productData, quantity: cartProd.quantity, status: 'UPDATED' };
-      }
+     
       return { ...state, cart: { ...state.cart, prods: updateCart }, products: updateProducts };
 
     case 'DELETEPROD':

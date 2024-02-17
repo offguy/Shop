@@ -31,7 +31,7 @@ function CustomersWhoBoughtComp({prodid}) {
       <ul>
         {
             custWhoBought?.map((per, index) => {console.log(per._id)
-                return <li key={index}><Link to={per._id ? '/customers/customer/' + per._id : '/customers'}>
+                return <li key={index}><Link to={per._id ? 'home/customers/customer/' + per._id : '/customers'}>
                 {per.name}
               </Link></li>
             })

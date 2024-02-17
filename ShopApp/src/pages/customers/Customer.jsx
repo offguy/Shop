@@ -19,7 +19,7 @@ console.log(prods)
     
     return (
         <tr>
-            <td><Link to={`customer/${cust._id}`}>{cust.fname} {cust.lname}</Link></td>
+            <td><Link to={`home/customers/customer/${cust._id}`}>{cust.fname} {cust.lname}</Link></td>
             <td>
                 {prods.map(prod =>
                     <Link key={prod._id} to={`/products/product/${prod._id}`}>{prod.name}</Link>

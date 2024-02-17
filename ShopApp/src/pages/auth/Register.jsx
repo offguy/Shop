@@ -8,6 +8,10 @@ const RegisterComponent = () => {
   const [email, setEmail] = useState('');
   const navigate = useNavigate()
   const handleRegister = async () => {
+    if (!username || !password || !email) {
+      alert('Please fill in all fields');
+      return;
+    }
     const newUser = {
     username,
     password,
@@ -18,7 +22,7 @@ const RegisterComponent = () => {
       console.log(res)
       navigate('/login')
     } catch (error) {
-      
+      console.log(error)
     }
 
   };

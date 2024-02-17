@@ -18,7 +18,7 @@ function EditProductComp() {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch({type: product.status  , payload: product})
-    navigate('/products')
+    navigate('home/products')
   }
   
     return (

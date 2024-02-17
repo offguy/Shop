@@ -8,7 +8,7 @@ function ProductComp({prod}) {
     return (
     <>
         <tr>
-            <td><Link to={'product/' + prod._id} >{prod.name}</Link></td>
+            <td><Link to={'home/products/product/' + prod._id} >{prod.name}</Link></td>
             <td>{prod.price}</td>
             <td>{prod.quantity}</td>
             <td>{<CustomersWhoBoughtComp prodid={prod._id} />}</td>

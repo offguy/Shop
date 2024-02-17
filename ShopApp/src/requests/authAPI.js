@@ -9,7 +9,7 @@ export const register = async (userData) => {
         alert (response.data);
     } catch (error) {
         console.error('Error registering user:', error);
-        throw error; // Re-throw the error to handle it in the calling function
+        throw new Error(error.response.data.message || 'Error registering user');
     }
 };
 
@@ -21,8 +21,8 @@ export const login = async (userData) => {
         return accessToken
         }
     } catch (error) {
-        console.error('Error logging in:', error);
-        throw error; // Re-throw the error to handle it in the calling function
+        console.error('Error logging in:', error.response.data);
+    throw new Error(error.response.data || 'Error logging in');
     }
 };
 

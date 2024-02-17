@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 
 function EditCustomerComp() {
   const { id } = useParams();
@@ -9,7 +9,7 @@ function EditCustomerComp() {
 
   const dispatch = useDispatch();
   const cust = useSelector((state) => state.customers.find((cust) => cust._id === id));
-
+  const navigate = useNavigate()
   useEffect(() => {
     setVisibility(cust?.status === "DELETED" ? 'collapse' : 'visible');
   }, [customer ? customer : cust]);
@@ -27,6 +27,7 @@ function EditCustomerComp() {
   
     dispatch({ type: customer.status, payload: customer ? customer : id });
     setCustomer(null);
+    navigate('home/customres')
   };
   
   const handleChange = (e) => {
