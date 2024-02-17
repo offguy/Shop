@@ -5,11 +5,13 @@ import HomeComp from './pages/home';
 import { useState } from 'react';
 import { Route, Routes, Navigate } from 'react-router-dom';
 function App() {
-  const [accessToken, setAccessToken] = useState();
-  console.log(accessToken);
+  const [authorazation, setAuthorazation] = useState({
+    accessToken : '',
+    _id: ''
+  });
 
-  const getToken = (token) => {
-    setAccessToken(token);
+  const getAuth = (token, _id) => {
+    setAuthorazation({_id, accessToken: token});
   };
 
   return (
@@ -19,12 +21,12 @@ function App() {
           {/* Always render the register route */}
           <Route path="/" element={<RegisterComponent />} />
           {/* Render the login route only if accessToken is not set */}
-          {!accessToken && <Route path="/login" element={<LoginComponent getToken={getToken} />} />}
+          {!authorazation.accessToken && <Route path="/login" element={<LoginComponent getAuth={getAuth} />} />}
         </Routes>
         {/* Render the home route only if accessToken is set */}
-        {accessToken && (
+        {authorazation.accessToken && (
           <Routes>
-            <Route path="home/*" element={<HomeComp accessToken={accessToken} />} />
+            <Route path="home/*" element={<HomeComp authorazation={authorazation} />} />
           </Routes>
         )}
       </div>

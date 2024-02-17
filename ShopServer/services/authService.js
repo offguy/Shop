@@ -50,7 +50,7 @@ const register = async (fname, lname, username, password, email) => {
 const loginDataValidation = async (username, password) => {
     const data  = await authREP.readUsers()
     console.log(data)
-    const user = data.find(user => user.username === username && user.password === password)
+    const user = data.users.find(user => user.username === username && user.password === password)
     console.log(user)
     if (user) {
         return user._id

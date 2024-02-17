@@ -4,7 +4,7 @@ const initState = {
   customers: [],
   purchases: [],
   cart: {
-    custId: '65bbcf5b51222f8847b4a82a',
+    custId: "",
     date: new Date().toLocaleDateString(),
     prods: null
   },
@@ -15,16 +15,18 @@ console.log(initState)
 const storeState = (state = initState, action) => {
   switch (action.type) {
     case 'INITIALIZE_DATA':
-      const { products, customers, purchases } = action.payload;
+      const { products, customers, purchases, _id } = action.payload;
       const productsWithStatus = (products || []).map(product => ({ ...product, status: 'UNCHANGED' }));
       const customersWithStatus = (customers || []).map(customer => ({ ...customer, status: 'UNCHANGED' }));
       const purchasesWithStatus = (purchases || []).map(purchase => ({ ...purchase, status: 'UNCHANGED' }));
+      const cart = {...state.cart}
       console.log(initState)
       return {
         ...state,
         products: productsWithStatus,
         customers: customersWithStatus,
         purchases: purchasesWithStatus,
+        cart: {...cart, custId : _id}
       };
 
     case 'ADDPROD':
@@ -112,6 +114,8 @@ const storeState = (state = initState, action) => {
         if (custUpdateIndex !== -1) {
           updateCustomers[custUpdateIndex] = { ...customerData, status: 'UPDATED' };
         }
+        return { ...state, customers: updateCustomers };
+        
     case 'DELETECUST':
         const id = action.payload._id;
 

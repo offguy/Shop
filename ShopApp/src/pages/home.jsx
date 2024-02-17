@@ -10,19 +10,21 @@ import { useDispatch } from 'react-redux';
 import React, { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
-function HomeComp({ accessToken }) {
+function HomeComp({ authorazation }) {
     const dispatch = useDispatch();
+    const {accessToken, _id} = authorazation
+
     useEffect(() => {
         const fetchData = async () => {
             try {
-                console.log(accessToken)
+                console.log(authorazation)
                 const products = await fetchProducts(accessToken)
                 const customers = await fetchCustomers(accessToken);
                 const purchases = await fetchPurchases(accessToken);
                 console.log(products);
                 console.log(customers);
                 console.log(purchases);
-                dispatch({ type: 'INITIALIZE_DATA', payload: { products, customers, purchases } });
+                dispatch({ type: 'INITIALIZE_DATA', payload: { products, customers, purchases, _id } });
             } catch (error) {
                 console.error('Error fetching initial data:', error);
             }

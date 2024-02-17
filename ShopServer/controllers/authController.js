@@ -21,15 +21,15 @@ router.post('/login', async (req, res) => {
     try {
         console.log(req.body)
         const { username, password } = req.body;
-        const user = await authSERV.loginDataValidation(username, password);
-        console.log(user)
-        if (user) {
+        const _id = await authSERV.loginDataValidation(username, password);
+        console.log(_id)
+        if (_id) {
             const token = jwt.sign(
-                { id: user.id },
+                { _id },
                 SECRET_KEY,
                 // { expiresIn: '30m' }
             );
-            res.send({ accessToken: token });
+            res.send({ accessToken: token, _id });
         } else {
             res.status(401).send('Invalid username or password');
         }

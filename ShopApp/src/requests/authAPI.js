@@ -17,8 +17,8 @@ export const login = async (userData) => {
     try {
         const response = await axios.post(`${API_BASE_URL}/login`, userData);
         if (response.data.accessToken){
-        const {accessToken} = response.data
-        return accessToken
+        const { data } = response
+        return data
         }
     } catch (error) {
         console.error('Error logging in:', error.response.data);

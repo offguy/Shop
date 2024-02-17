@@ -3,7 +3,7 @@ import { login } from '../../requests/authAPI';
 import { useNavigate } from 'react-router-dom';
 
 
-const LoginComponent = ({getToken}) => {
+const LoginComponent = ({getAuth}) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate()
@@ -13,9 +13,10 @@ const LoginComponent = ({getToken}) => {
         password
       }
       try {
-        const accessToken = await login(user)
+        const {accessToken, _id} = await login(user)
         console.log(accessToken)
-        getToken(accessToken)
+        console.log(_id)
+        getAuth(accessToken, _id)
         navigate('/home')
       } catch (error) {
          alert (error)
