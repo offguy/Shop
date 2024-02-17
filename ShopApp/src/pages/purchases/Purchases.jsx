@@ -12,22 +12,30 @@ function PurchasesComp() {
     const [searchResults, setSearchResults] = useState([]);
 
     const handleSearch = () => {
-      console.log(selectedProduct)
         // Filter purchases based on selected criteria
         const filteredPurchases = purchases.filter((purchase) => {
-            const productMatch = selectedProduct ? purchase.products.find(prod => prod._id === selectedProduct) : true;
-            const customerMatch = selectedCustomer ? purchase.customerId._id === selectedCustomer : true;
+            const productMatch = selectedProduct ? purchase.products.find(prod => prod.productId === selectedProduct) : true;
+            const customerMatch = selectedCustomer ? purchase.customerId === selectedCustomer : true;
             const dateMatch = selectedDate ? purchase.date.includes(selectedDate) : true;
-            console.log(productMatch);
             return productMatch && customerMatch && dateMatch;
         });
 
-        setSearchResults(filteredPurchases);
-    };
+        // Map over filtered purchases to include whole customer and product objects
+        const mappedResults = filteredPurchases.map(purchase => ({
+            ...purchase,
+            customer: customers.find(customer => customer._id === purchase.customerId),
+            products: purchase.products.map(prod => ({
+                ...prod,
+                product: products.find(product => product._id === prod.productId)
+            }))
+        }));
 
+        setSearchResults(mappedResults);
+    };
+    
     return (
         <div>
-            <h1>Purchased Page</h1>
+            <h1>Purchase Page</h1>
             <div>
                 <label>Select Product:</label>
                 <select onChange={(e) => setSelectedProduct(e.target.value)}>
@@ -69,14 +77,14 @@ function PurchasesComp() {
                     </tr>
                 </thead>
                 <tbody>
-                {searchResults.map((result) => (
-    <tr key={result._id}>
-        <td>{result.customerId.fname} {result.customerId.lname}</td>
-        <td>{result.products.map(prod => prod.productId.name)}</td>
-        <td>{result.date}</td>
-    </tr>
-))}
-</tbody>
+                    {searchResults.map((result) => (
+                        <tr key={result._id}>
+                            <td>{result.customer.fname} {result.customer.lname}</td>
+                            <td>{result.products.map(prod => prod.product.name).join(', ')}</td>
+                            <td>{result.date}</td>
+                        </tr>
+                    ))}
+                </tbody>
             </table>
         </div>
     );
