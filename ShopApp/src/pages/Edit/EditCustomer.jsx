@@ -44,8 +44,7 @@ function EditCustomerComp() {
       <form hidden={cust ? false : true} onSubmit={handleSubmit}>
         DELETE/UPDATE <input type="checkbox" onChange={handleChange} /> <br />
         <div style={{ visibility: customer?.status !== 'UPDATECUST' ? 'collapse' : 'visible' }}>
-          First Name<input type="text" onChange={(e) => setCustomer({ ...customer, fname: e.target.value })} placeholder={cust?.fname} /> <br />
-          Last Name<input type="text" onChange={(e) => setCustomer({ ...customer, lname: e.target.value })} placeholder={cust?.lname} /> <br /> <br />
+
           Address:
           <div>
             City<input type="text" onChange={(e) => setCustomer({ ...customer, address: { ...customer?.address, city: e.target.value } })} placeholder={cust?.address?.city} /> <br />
