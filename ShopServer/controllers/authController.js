@@ -1,16 +1,16 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
-const loginSERV = require('../services/authService');
+const authSERV = require('../services/authService');
 const router = express.Router();
 const { SECRET_KEY } = require('../configs/params');
 
 router.post('/register', async (req, res) => {
     try {
-        const { username, password, email } = req.body;
-        if (!username || !password || !email){
+        const { fname, lname, email, username, password } = req.body;
+        if (!fname || !lname || !email || !username || !password){
             res.send ('please enter full registration form')
         }
-        const data = await loginSERV.register(username, password, email);
+        const data = await authSERV.register(fname, lname, username, password, email);
         res.send(data);
     } catch (error) {
         res.status(500).send('Internal Server Error');
@@ -21,7 +21,7 @@ router.post('/login', async (req, res) => {
     try {
         console.log(req.body)
         const { username, password } = req.body;
-        const user = await loginSERV.loginDataValidation(username, password);
+        const user = await authSERV.loginDataValidation(username, password);
         console.log(user)
         if (user) {
             const token = jwt.sign(

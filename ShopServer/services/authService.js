@@ -1,44 +1,59 @@
-const {v4: uuid} = require('uuid')
-const usersREP = require('../repositories/authREP');
+const authREP = require('../repositories/authREP');
 const jwt = require('jsonwebtoken');
 const { SECRET_KEY } = require('../configs/params');
+const customersREP = require("../repositories/customersREP")
 
-
-const register = async (username, password, email) => {
+const register = async (fname, lname, username, password, email) => {
     try {
+        // Check if the username already exists
+        const data = await authREP.readUsers();
+        const existusername = data.users.find(user => user.username === username);
+        if (existusername) {
+            return 'Username already taken';
+        }
+
+        // Proceed with user registration
         const newUser = {
-            id: uuid(),
+            fname,
+            lname,
+            email,
+            address: []
+        };
+        
+        const user = await customersREP.addNew(newUser);
+        console.log(user)
+        if (!user._id) {
+            return 'User already in the system';
+        }
+        
+        const { _id } = user;
+        const userId = _id.toString();
+        console.log(data.users);
+
+        const logindata = {
+            _id: userId,
             username,
             password,
             email
         };
+        data.users.push(logindata);
         
-        let users = await usersREP.readUsers();
-        console.log(users)
-        if (users !== null) {
-            const exist = users.filter(user => user.email === email);
-        if (exist.length > 0) {
-            return 'Email already in the system';
-        }
-        users.push(newUser);
-
-        await usersREP.writeUsers(users);
+        await authREP.writeUsers(data);
     
         return 'Successfully registered';
-        }
+        
     } catch (error) {
-        return 'something went terribly wrong: ' + error;
+        return 'Something went terribly wrong: ' + error;
     }
 };
 
-
 const loginDataValidation = async (username, password) => {
-    const data  = await usersREP.readUsers()
+    const data  = await authREP.readUsers()
     console.log(data)
     const user = data.find(user => user.username === username && user.password === password)
     console.log(user)
     if (user) {
-        return user.id
+        return user._id
     }
    
     

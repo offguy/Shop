@@ -1,4 +1,4 @@
-const customersREP = require('../repositories/CustomersREP')
+const customersREP = require('../repositories/customersREP')
 
 const getAllCustomers = async () => {
 try {

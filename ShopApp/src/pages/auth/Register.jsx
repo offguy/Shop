@@ -6,35 +6,41 @@ const RegisterComponent = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
-  const navigate = useNavigate()
+  const [fname, setFirstName] = useState('');
+  const [lname, setLastName] = useState('');
+  const navigate = useNavigate();
+
   const handleRegister = async () => {
-    if (!username || !password || !email) {
+    if (!username || !password || !email || !fname || !lname) {
       alert('Please fill in all fields');
       return;
     }
     const newUser = {
-    username,
-    password,
-    email
-    }
+      username,
+      password,
+      email,
+      fname,
+      lname,
+    };
     try {
-      res = await register(newUser)
-      console.log(res)
-      navigate('/login')
+      const res = await register(newUser);
+      console.log(res);
+      navigate('/login');
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-
   };
 
   return (
     <div>
       <h2>Register</h2>
-      <input type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
-      <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
-      <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
+      <input type="text" placeholder="First Name" value={fname} onChange={(e) => setFirstName(e.target.value)} />
+      <input type="text" placeholder="Last Name" value={lname} onChange={(e) => setLastName(e.target.value)} /> <br />
+      <input type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} /> 
+      <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} /> <br />
+      <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} /> <br />
       <button onClick={handleRegister}>Register</button> <br />
-      <Link to={'/login'} >login</Link>
+      <Link to={'/login'}>login</Link>
     </div>
   );
 };
