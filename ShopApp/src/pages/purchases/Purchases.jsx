@@ -10,7 +10,7 @@ function PurchasesComp() {
     const [selectedCustomer, setSelectedCustomer] = useState('');
     const [selectedDate, setSelectedDate] = useState('');
     const [searchResults, setSearchResults] = useState([]);
-
+    console.log(customers)
     const handleSearch = () => {
         // Filter purchases based on selected criteria
         const filteredPurchases = purchases.filter((purchase) => {
@@ -19,17 +19,16 @@ function PurchasesComp() {
             const dateMatch = selectedDate ? purchase.date.includes(selectedDate) : true;
             return productMatch && customerMatch && dateMatch;
         });
-
+        console.log(filteredPurchases)
         // Map over filtered purchases to include whole customer and product objects
         const mappedResults = filteredPurchases.map(purchase => ({
             ...purchase,
-            customer: customers.find(customer => customer._id === purchase.customerId),
+            customer: customers.find(cust => cust._id === purchase.customerId),
             products: purchase.products.map(prod => ({
-                ...prod,
-                product: products.find(product => product._id === prod.productId)
+            product: products.find(product => product._id === prod.productId)
             }))
         }));
-
+        console.log(mappedResults)
         setSearchResults(mappedResults);
     };
     
@@ -55,7 +54,7 @@ function PurchasesComp() {
                 }}>
                     <option value="">All Customers</option>
                     {customers.map((customer) => (
-                        <option key={customer._id} value={customer._id}>
+                        <option key={customer._id} value={customer._id.toString()}>
                             {customer.fname} {customer.lname}
                         </option>
                     ))}

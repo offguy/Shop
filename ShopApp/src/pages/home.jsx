@@ -31,7 +31,7 @@ function HomeComp({ authorazation }) {
         };
 
         fetchData();
-    }, [dispatch]);
+    }, []);
 
     return (
         <>

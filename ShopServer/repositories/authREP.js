@@ -8,7 +8,9 @@ const readUsers = async () => {
 }
 
 const writeUsers = async (data) => {
-   return await js.writeFile('./configs/users.json', data)
+   const users = await js.readFile('./configs/users.json')
+   await js.writeFile('./configs/users.json', data)
+
 }
 
 

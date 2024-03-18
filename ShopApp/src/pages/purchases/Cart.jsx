@@ -11,7 +11,6 @@ function CartComp({accessToken}) {
   const [isCartVisible, setCartVisibility] = useState(false);
 
   const cart = useSelector((state) => state.cart);
-
   useEffect(() => {
     let sum = 0;
     cart.prods?.forEach(
@@ -40,7 +39,7 @@ function CartComp({accessToken}) {
         <div>
           <h2>Cart</h2>
           <h3>{total}</h3>
-          {cart.custId ? cart.custId : null} {cart.date} <br />
+          {cart.date} <br />
           {products ? (
             <ul>
               {products.map(
@@ -55,7 +54,7 @@ function CartComp({accessToken}) {
               )} <BuyNowComp cart={cart} accessToken={accessToken} />
             </ul>
           ) : (
-            <Link className="link-button" to="/products">
+            <Link className="link-button" to="/home/products">
               <h3>Add products to cart</h3>
             </Link>
           )}
