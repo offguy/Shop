@@ -10,7 +10,6 @@ function PurchasesComp() {
     const [selectedCustomer, setSelectedCustomer] = useState('');
     const [selectedDate, setSelectedDate] = useState('');
     const [searchResults, setSearchResults] = useState([]);
-    console.log(customers)
     const handleSearch = () => {
         // Filter purchases based on selected criteria
         const filteredPurchases = purchases.filter((purchase) => {
@@ -19,7 +18,6 @@ function PurchasesComp() {
             const dateMatch = selectedDate ? purchase.date.includes(selectedDate) : true;
             return productMatch && customerMatch && dateMatch;
         });
-        console.log(filteredPurchases)
         // Map over filtered purchases to include whole customer and product objects
         const mappedResults = filteredPurchases.map(purchase => ({
             ...purchase,
@@ -28,7 +26,6 @@ function PurchasesComp() {
             product: products.find(product => product._id === prod.productId)
             }))
         }));
-        console.log(mappedResults)
         setSearchResults(mappedResults);
     };
     

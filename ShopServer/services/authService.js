@@ -21,14 +21,12 @@ const register = async (fname, lname, username, password, email) => {
         };
         
         const user = await customersREP.addNew(newUser);
-        console.log(user)
         if (!user._id) {
             return 'User already in the system';
         }
         
         const { _id } = user;
         const userId = _id.toString();
-        console.log(data.users);
 
         const logindata = {
             _id: userId,
@@ -49,9 +47,7 @@ const register = async (fname, lname, username, password, email) => {
 
 const loginDataValidation = async (username, password) => {
     const data  = await authREP.readUsers()
-    console.log(data)
     const user = data.users.find(user => user.username === username && user.password === password)
-    console.log(user)
     if (user) {
         return user._id
     }

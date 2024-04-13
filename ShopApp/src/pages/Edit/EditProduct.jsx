@@ -9,7 +9,6 @@ function EditProductComp() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const prod = useSelector((state) => state.products.filter(prod => prod._id == id)[0])
-  console.log(product)
   useEffect(() => {
     setProduct({_id : id, status: 'DELETEPROD'})
   }, [id])

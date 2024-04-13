@@ -24,10 +24,9 @@ const RegisterComponent = () => {
     };
     try {
       const res = await register(newUser);
-      console.log(res);
       navigate('/login');
     } catch (error) {
-      console.log(error);
+      alert(error);
     }
   };
 

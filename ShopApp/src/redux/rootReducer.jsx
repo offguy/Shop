@@ -10,7 +10,6 @@ const initState = {
   },
 };
 
-console.log(initState)
 
 const storeState = (state = initState, action) => {
   switch (action.type) {
@@ -20,7 +19,6 @@ const storeState = (state = initState, action) => {
       const customersWithStatus = (customers || []).map(customer => ({ ...customer, status: 'UNCHANGED' }));
       const purchasesWithStatus = (purchases || []).map(purchase => ({ ...purchase, status: 'UNCHANGED' }));
       const cart = {...state.cart}
-      console.log(initState)
       return {
         ...state,
         products: productsWithStatus,

@@ -11,7 +11,7 @@ router.get('/', async (req, res) => {
     const products = await productsSERV.getAllProducts()
     res.send(products)
    } catch (error) {
-    res.send(error)
+    res.send("prodController error: " + error)
    } 
 });
 
@@ -22,7 +22,7 @@ router.get('/:id', async (req, res) => {
     const products = await productsSERV.getById(id)
     res.send(products)
   } catch (error) {
-    res.send(error)
+    res.send("prodController error: " + error)
   }
 });
 
@@ -33,7 +33,7 @@ router.post('/', async (req, res) => {
     const response = await productsSERV.addNewProduct(newProd)
     res.send(response.message)
   } catch (error) {
-    res.send(error)
+    res.send("prodController error: " + error)
   }
 });
 
@@ -45,7 +45,7 @@ router.put('/:id', async (req, res) => {
     await productsSERV.updateProduct(id, prodUpd)
     res.status(200).send(prodUpd)
   } catch (error) {
-    res.send(error)
+    res.send("prodController error: " + error)
   }
 });
 
@@ -56,7 +56,7 @@ router.delete('/:id', async (req, res) => {
       await productsSERV.deleteProduct(id)
       res.send('DELETED')
     } catch (error) {
-      res.send(error)
+      res.send("prodController error: " + error)
     }
 });
 

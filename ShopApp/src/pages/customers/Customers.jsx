@@ -10,7 +10,6 @@ function CustomersComp() {
 
     const customers = useSelector((state) => state.customers.filter(cust => cust.status !== 'DELETED'))
     const memoizedCustomers = useMemo(() => customers, [customers]);
-    console.log(customers)
   
     return (
       <div>

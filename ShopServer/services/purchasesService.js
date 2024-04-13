@@ -13,7 +13,7 @@ const getById = async (id) => {
   try {
     return await purchasesREP.getById(id)
   } catch (error) {
-    return error
+    return 'incorrect id: ' + error
   }
 }
 
@@ -26,15 +26,14 @@ const addNewPurchase = async (obj) => {
         const { productId, quantity } = prod;
         await productsREP.update(productId, { $inc: { quantity: -quantity } });
       } catch (error) {
-        console.error(`Error updating product: ${error}`);
+      `Error updating product: ${error}`
       }
     }
     
     const res = await purchasesREP.addNew(obj);
     return res;
   } catch (error) {
-    console.error(`Problem with adding purchase: ${error}`);
-    return 'problem in PurchaseOBJ';
+    return 'problem in PurchaseOBJ: ' + error;
   }
 };
 
@@ -42,15 +41,15 @@ const updatePurchase = async (id, obj) => {
   try {
     return await purchasesREP.update(id, obj)
   } catch (error) {
-    return 'incorrect ID/PurchaseOBJ'
+    return 'incorrect ID/PurchaseOBJ: ' + error
   }
   
 }
-const  DeletePurchase = async (id) => {
+const  deletePurchase = async (id) => {
   try {
     return await purchasesREP.Delete(id)
   } catch (error) {
-    return 'incorrect id'
+    return 'incorrect id: ' + error
   }
 }
 
@@ -59,4 +58,4 @@ module.exports = {
   getById,
   addNewPurchase,
   updatePurchase,
-  DeletePurchase}
+  deletePurchase}

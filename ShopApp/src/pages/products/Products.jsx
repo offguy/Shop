@@ -7,7 +7,7 @@ function ProductsComp() {
   
   const products = useSelector((state) => state.products.filter(prod => prod.status != 'DELETED'))
 
-  const memoizedCustomers = useMemo(() => products, [products]);
+  const memoizedProducts = useMemo(() => products, [products]);
 
   
     return (
@@ -25,7 +25,7 @@ function ProductsComp() {
             <td>Customers</td>
             </tr>
             {
-              memoizedCustomers.map((prod)=> {
+              memoizedProducts.map((prod)=> {
                 return( <ProductComp  key={prod._id} prod={prod}/> )
 
 

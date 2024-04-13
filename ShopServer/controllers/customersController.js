@@ -11,7 +11,7 @@ router.get('/', async (req, res) => {
     const customers = await customersSERV.getAllCustomers()
     res.send(customers)
    } catch (error) {
-    res.send(error)
+    res.send("custController error: " + error)
    } 
 });
 
@@ -22,7 +22,7 @@ router.get('/:id', async (req, res) => {
     const customer = await customersSERV.getById(id)
     res.send(customer)
   } catch (error) {
-    res.send(error)
+    res.send("custController error: " + error)
   }
 });
 
@@ -33,7 +33,7 @@ router.post('/', async (req, res) => {
     const response = await customersSERV.addNewCustomer(newCust)
     res.send(response)
   } catch (error) {
-    res.send(error)
+    res.send("custController error: " + error)
   }
 });
 
@@ -45,7 +45,7 @@ router.put('/:id', async (req, res) => {
     await customersSERV.updateCustomer(id, custUpd)
     res.status(200).send(custUpd)
   } catch (error) {
-    res.send(error)
+    res.send("custController error: " + error)
   }
 });
 
@@ -56,7 +56,7 @@ router.delete('/:id', async (req, res) => {
       await customersSERV.deleteCustomer(id)
       res.send('DELETED')
     } catch (error) {
-      res.send(error)
+      res.send("custController error: " + error)
     }
 });
 

@@ -17,16 +17,13 @@ function HomeComp({ authorazation }) {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                console.log(authorazation)
                 const products = await fetchProducts(accessToken)
                 const customers = await fetchCustomers(accessToken);
                 const purchases = await fetchPurchases(accessToken);
-                console.log(products);
-                console.log(customers);
-                console.log(purchases);
+            
                 dispatch({ type: 'INITIALIZE_DATA', payload: { products, customers, purchases, _id } });
             } catch (error) {
-                console.error('Error fetching initial data:', error);
+              'Error fetching initial data:', error;
             }
         };
 

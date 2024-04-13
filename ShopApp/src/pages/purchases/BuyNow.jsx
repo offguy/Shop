@@ -13,17 +13,15 @@ const BuyNowComp = ({ cart, accessToken }) => {
       const processedProducts = products.map(prod => {
         const {_id: productId, quantity} = prod
         const data = {productId , quantity }
-        console.log(data)
         return data
       });
-      console.log({customerId, products: processedProducts})
         await saveCartToDB({customerId, products: processedProducts}, accessToken);
 
       dispatch({type: 'RESET_CART'})
       navigate('http://localhost:5173/');
     } catch (error) {
-      console.error('Failed to send cart data to server.', error);
-    }
+    "Buy Now error: " + error
+   }
   };
 
   return (

@@ -13,16 +13,14 @@ router.post('/register', async (req, res) => {
         const data = await authSERV.register(fname, lname, username, password, email);
         res.send(data);
     } catch (error) {
-        res.status(500).send('Internal Server Error');
+        res.status(500).send('authController error: ' + error);
     }
 });
 
 router.post('/login', async (req, res) => {
     try {
-        console.log(req.body)
         const { username, password } = req.body;
         const _id = await authSERV.loginDataValidation(username, password);
-        console.log(_id)
         if (_id) {
             const token = jwt.sign(
                 { _id },
@@ -34,8 +32,7 @@ router.post('/login', async (req, res) => {
             res.status(401).send('Invalid username or password');
         }
     } catch (error) {
-        console.error(error);
-        res.status(500).send('Internal Server Error');
+        res.status(500).send('authController error: ' + error);
     }
 });
 

@@ -11,7 +11,6 @@ const handleResponse = (response) => {
 
 export const fetchProducts = async (token) => {
   try {
-    // console.log({'authorization': token}) 
     const response = await axios.get(`${API_BASE_URL}/products`, {
       headers: {
         'authorization': token  

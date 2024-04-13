@@ -18,7 +18,7 @@ function CartComp({accessToken}) {
     );
     setTotal(sum);
     setProducts(cart.prods);
-    console.log(products)
+    
   }, [cart?.prods]);
 
   const showCart = () => {

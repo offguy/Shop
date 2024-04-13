@@ -11,7 +11,7 @@ router.get('/', async (req, res) => {
     const purchases = await purchasesSERV.getAllPurchases()
     res.send(purchases)
    } catch (error) {
-    res.send(error)
+    res.send("purchController error: " + error)
    } 
 });
 
@@ -22,7 +22,7 @@ router.get('/:id', async (req, res) => {
     const purchase = await purchasesSERV.getById(id)
     res.send(purchase)
   } catch (error) {
-    res.send(error)
+    res.send("purchController error: " + error)
   }
 });
 
@@ -33,7 +33,7 @@ router.post('/', async (req, res) => {
     const response = await purchasesSERV.addNewPurchase(newPurch)
     res.send(response)
   } catch (error) {
-    res.send(error)
+    res.send("purchController error: " + error)
   }
 });
 
@@ -45,7 +45,7 @@ router.put('/:id', async (req, res) => {
     await purchasesSERV.updatePurchase(id, purchUpd)
     res.status(200).send(purchUpd)
   } catch (error) {
-    res.send(error)
+    res.send("purchController error: " + error)
   }
 });
 
@@ -56,7 +56,7 @@ router.delete('/:id', async (req, res) => {
       await purchasesSERV.deletePurchase(id)
       res.send('DELETED')
     } catch (error) {
-      res.send(error)
+      res.send("purchController error: " + error)
     }
 });
 

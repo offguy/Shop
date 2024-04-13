@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux"
 import { Link } from 'react-router-dom';
+import { useMemo } from "react"
 
 
 function CustomersWhoBoughtComp({prodid}) {
@@ -15,7 +16,6 @@ function CustomersWhoBoughtComp({prodid}) {
           )
         );
 
-            console.log(custs)
         const custPurchs = custs.map(cust => {
         const purchase = purchases.find(purch => purch.customerId === cust._id && purch.products.some(p => p.productId === prodid));
           return {
@@ -25,15 +25,15 @@ function CustomersWhoBoughtComp({prodid}) {
           };
         })
     setCustWhoBought(custPurchs)
-    console.log(custPurchs)
     }, [purchases])
     
+    const memoizedCustWB = useMemo(() => custWhoBought, [custWhoBought]);
 
     return (
       <>
       <ul>
         {
-            custWhoBought?.map((per, index) => {console.log(per._id)
+            memoizedCustWB?.map((per, index) => {
                 return <li key={index}><Link to={`../customers/customer/${per._id}`}>
                 {per.name}
               </Link> {per.purchaseDate}</li>

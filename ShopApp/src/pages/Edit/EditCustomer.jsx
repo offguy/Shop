@@ -12,7 +12,7 @@ function EditCustomerComp() {
   const navigate = useNavigate()
   useEffect(() => {
     setVisibility(cust?.status === "DELETED" ? 'collapse' : 'visible');
-  }, [customer ? customer : cust]);
+  });
   useEffect(() => {
     setCustomer({_id : id, status: 'DELETEPROD'})
   }, [id])

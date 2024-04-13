@@ -29,7 +29,6 @@ app.use((req, res, next) => {
         next();
     } else {
     //   console.log(req.headers);
-        console.log(token)
         if (!token) {
             return res.status(401).json({ error: 'Access denied. No access token provided.' });
         } else {
