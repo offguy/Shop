@@ -1,5 +1,6 @@
 import LoginComponent from './pages/auth/Login';
 import RegisterComponent from './pages/auth/Register';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import HomeComp from './pages/home';
 import { useState } from 'react';

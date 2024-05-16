@@ -92,3 +92,27 @@ nav {
   grid-template-columns: 1fr 1fr;
   gap: 20px; /* Adjust the gap as needed */
 }
+
+/* Bootstrap Integration */
+
+/* Add Bootstrap utility classes to existing elements */
+
+#root {
+  padding: 2rem;
+}
+
+/* Enhance navigation with Bootstrap classes */
+nav {
+  background-color: #aac8e8;
+}
+
+/* Improve button styling with Bootstrap classes */
+.link-button {
+  padding: 8px 16px;
+  border-radius: 4px;
+}
+
+/* Align container using Bootstrap class */
+.container {
+  margin-top: 4rem;
+}
