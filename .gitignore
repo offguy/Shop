@@ -1,7 +1,5 @@
-ShopServer/configs/ 
+
 ShopServer/node_modules/ 
 ShopApp/node_modules/ 
-ShopServer/controllers/masterRouter.js
-ShopServer/reposetories/masterREP.js
-ShopServer/services/masterService.js
+
 
