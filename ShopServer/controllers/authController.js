@@ -20,14 +20,14 @@ router.post('/register', async (req, res) => {
 router.post('/login', async (req, res) => {
     try {
         const { username, password } = req.body;
-        const _id = await authSERV.loginDataValidation(username, password);
+        const {_id, role} = await authSERV.loginDataValidation(username, password);
         if (_id) {
             const token = jwt.sign(
                 { _id },
                 SECRET_KEY,
                 // { expiresIn: '30m' }
             );
-            res.send({ accessToken: token, _id });
+            res.send({ accessToken: token, _id, role });
         } else {
             res.status(401).send('Invalid username or password');
         }

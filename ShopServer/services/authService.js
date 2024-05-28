@@ -32,7 +32,8 @@ const register = async (fname, lname, username, password, email) => {
             _id: userId,
             username,
             password,
-            email
+            email,
+            role: "customer"
         };
         data.users.push(logindata);
         
@@ -49,7 +50,10 @@ const loginDataValidation = async (username, password) => {
     const data  = await authREP.readUsers()
     const user = data.users.find(user => user.username === username && user.password === password)
     if (user) {
-        return user._id
+        return {
+            _id: user._id,
+            role: user.role
+        }
     }
    
     

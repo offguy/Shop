@@ -12,7 +12,7 @@ import { Route, Routes } from 'react-router-dom';
 
 function HomeComp({ authorazation }) {
     const dispatch = useDispatch();
-    const {accessToken, _id} = authorazation
+    const {accessToken, _id, role} = authorazation
 
     useEffect(() => {
         const fetchData = async () => {
@@ -34,6 +34,7 @@ function HomeComp({ authorazation }) {
         <>
             <div>
                 <h1>SHOP</h1>
+                <h6>{role}</h6>
                 <nav className="nav-container">
                     <NavComp />
                 </nav>

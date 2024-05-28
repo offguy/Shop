@@ -59,7 +59,7 @@ function PurchasesComp() {
             </div>
             <div>
                 <label>Enter Date:</label>
-                <input type="text" value={selectedDate} onChange={(e) => setSelectedDate(e.target.value)} />
+                <input type="text" value={selectedDate} placeholder="yyyy-mm" onChange={(e) => setSelectedDate(e.target.value)} />
             </div>
             <button onClick={handleSearch}>Search</button>
 

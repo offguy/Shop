@@ -1,19 +1,39 @@
+import { useEffect, useState } from 'react';
+import { Route, Routes, Navigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
 import LoginComponent from './pages/auth/Login';
 import RegisterComponent from './pages/auth/Register';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import HomeComp from './pages/home';
-import { useState } from 'react';
-import { Route, Routes, Navigate } from 'react-router-dom';
+
 function App() {
   const [authorazation, setAuthorazation] = useState({
-    accessToken : '',
-    _id: ''
+    accessToken: '',
+    _id: '',
+    role: ''
   });
 
-  const getAuth = (token, _id) => {
-    setAuthorazation({_id, accessToken: token});
+  const getAuth = (token, _id, role) => {
+    // Save tokens in state
+    setAuthorazation({ _id, accessToken: token, role });
+
+    // Save tokens in cookies
+    Cookies.set('accessToken', token);
+    Cookies.set('_id', _id);
+    Cookies.set('role', role);
   };
+
+  useEffect(() => {
+    // Check for tokens in cookies
+    const accessToken = Cookies.get('accessToken');
+    const _id = Cookies.get('_id');
+    const role = Cookies.get('role');
+
+    if (accessToken) {
+      setAuthorazation({ accessToken, _id, role });
+    }
+  }, []);
 
   return (
     <div>
