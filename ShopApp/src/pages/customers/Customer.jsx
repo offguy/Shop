@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-
+import Cookies from "js-cookie"
 function CustomerComp({ cust }) {
   const products = useSelector((state) => state.products);
   const purchases = useSelector((state) => state.purchases);
@@ -38,9 +38,9 @@ function CustomerComp({ cust }) {
   return (
     <tr>
       <td>
-        <Link to={`customer/${cust._id}`}>
+        {Cookies.get("role") === "admin" ? <Link to={`customer/${cust._id}`}>
           {cust.fname} {cust.lname}
-        </Link>
+        </Link> : cust.fname + " " + cust.lname}
       </td>
       <td>
         {purchasedProducts.map((item, index) => (

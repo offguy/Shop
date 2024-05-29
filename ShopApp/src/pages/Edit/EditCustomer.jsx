@@ -6,13 +6,12 @@ function EditCustomerComp() {
   const { id } = useParams();
   const [customer, setCustomer] = useState();
   const [visibility, setVisibility] = useState('visible');
-
   const dispatch = useDispatch();
   const cust = useSelector((state) => state.customers.find((cust) => cust._id === id));
   const navigate = useNavigate()
   useEffect(() => {
     setVisibility(cust?.status === "DELETED" ? 'collapse' : 'visible');
-  });
+  }, []);
   useEffect(() => {
     setCustomer({_id : id, status: 'DELETEPROD'})
   }, [id])
